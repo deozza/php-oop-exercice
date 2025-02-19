@@ -1,19 +1,4 @@
 <?php
-session_start();
-
-function isLoggedIn(): bool {
-    return isset($_SESSION['user_id']);
-}
-function getDbConnexion(): PDO {
-    $host = 'php-oop-exercice-db';
-    $db = 'blog';
-    $user = 'root';
-    $password = 'password';
-
-    $dsn = "mysql:host=$host;dbname=$db;charset=UTF8";
-
-    return new PDO($dsn, $user, $password);
-}
 
 function register(string $username, string $email, string $password) {
     $sql = "SELECT * FROM users WHERE email = :email OR name = :username";
@@ -50,7 +35,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!doctype html>
 <html class="h-full">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8"
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
