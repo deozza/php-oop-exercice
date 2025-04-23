@@ -6,7 +6,7 @@ services:
                - ./app:/var/www/html
                - ./logs:/var/log/apache2/
           ports:
-               - 8080:80
+               - 8888:80
           depends_on:
               - php-oop-exercice-db
      php-oop-exercice-db:
