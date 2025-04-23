@@ -2,9 +2,6 @@ services:
      php-oop-exercice:
           container_name: php-oop-exercice
           build: .
-          volumes: 
-               - ./app:/var/www/html
-               - ./logs:/var/log/apache2/
           ports:
                - 8888:80
           depends_on:
