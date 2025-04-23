@@ -14,4 +14,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN a2enmod rewrite
 RUN service apache2 restart
 
+WORKDIR /var/www/html
+COPY ./app /var/www/html
+
+RUN composer install
+RUN composer dump-autoload
+
 EXPOSE 80
