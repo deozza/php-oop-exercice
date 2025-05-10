@@ -1,0 +1,27 @@
+[
+  {
+    "path": "/users",
+    "methods": ["GET"],
+    "controller": "UserController"
+  },
+  {
+    "path": "/register",
+    "methods": ["POST"],
+    "controller": "RegisterController"
+  },
+  {
+    "path": "/login",
+    "methods": ["POST"],
+    "controller": "LoginController"
+  },
+  {
+    "path": "/logout",
+    "methods": ["GET"],
+    "controller": "LogoutController"
+  },
+  {
+    "path": "/posts",
+    "methods": ["GET", "POST"],
+    "controller": "PostController"
+  }
+]
