@@ -1,17 +1,6 @@
 <?php
 session_start();
 
-function getDbConnexion(): PDO {
-    $host = 'php-oop-exercice-db';
-    $db = 'blog';
-    $user = 'root';
-    $password = 'password';
-
-    $dsn = "mysql:host=$host;dbname=$db;charset=UTF8";
-
-    return new PDO($dsn, $user, $password);
-}
-
 function isLoggedIn(): bool {
     return isset($_SESSION['user_id']);
 }
@@ -26,11 +15,7 @@ function getLimit(): int {
 
 
 function getPostsCount(): int {
-    $sql = "SELECT COUNT(*) FROM posts";
-    $stmt = getDbConnexion()->query($sql);
-    $count = $stmt->fetchColumn();
-
-    return $count;
+    return 0;
 }
 
 function getPagination(): array {
@@ -45,22 +30,7 @@ function getPagination(): array {
 }
 
 function getPosts(): array {
-
-    $currentPage = getPage();
-    $postsPerPage = getLimit();
-    $offset = ($currentPage - 1) * $postsPerPage;
-
-    $sql = "SELECT posts.id, posts.title, posts.created_at, users.name, users.id as user_id
-    FROM posts 
-    INNER JOIN users ON posts.user_id = users.id
-    ORDER BY posts.created_at DESC
-    LIMIT 10
-    OFFSET $offset;
-    ";
-    $stmt = getDbConnexion()->query($sql);
-    $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    return $posts;
+    return [];
 }
 ?>
 

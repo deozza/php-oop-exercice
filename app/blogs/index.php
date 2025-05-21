@@ -5,46 +5,17 @@ function isLoggedIn(): bool {
     return isset($_SESSION['user_id']);
 }
 
-function getDbConnexion(): PDO {
-    $host = 'php-oop-exercice-db';
-    $db = 'blog';
-    $user = 'root';
-    $password = 'password';
-
-    $dsn = "mysql:host=$host;dbname=$db;charset=UTF8";
-
-    return new PDO($dsn, $user, $password);
-}
 
 function getBlogPost(): array {
-    $sql = "SELECT posts.*, users.name, users.id as user_id
-    FROM posts 
-    INNER JOIN users ON posts.user_id = users.id
-    WHERE posts.id = :id
-    ";
-    $stmt = getDbConnexion()->prepare($sql);
-    $stmt->execute(['id' => $_GET['id']]);
-    $post = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    return $post;
+    return [];
 }
 
 function getAuthor(int $id): array {
-    $sql = "SELECT * FROM users WHERE id = :id";
-    $stmt = getDbConnexion()->prepare($sql);
-    $stmt->execute(['id' => $id]);
-    $author = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    return $author;
+    return [];
 }
 
 function getComments(int $postId): array {
-    $sql = "SELECT comments.*, users.name as user_name, users.id as user_id FROM comments INNER JOIN users ON comments.user_id = users.id WHERE post_id = :post_id";
-    $stmt = getDbConnexion()->prepare($sql);
-    $stmt->execute(['post_id' => $postId]);
-    $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    return $comments;
+    return [];
 }
 
 $post = getBlogPost();
@@ -64,17 +35,9 @@ function postComment(string $content) {
         'user_id' => $_SESSION['user_id'],
     ];
 
-    $sql = 'INSERT INTO comments (content, post_id, user_id) VALUES (:content, :post_id, :user_id)';
-    $stmt = getDbConnexion()->prepare($sql);
-    $stmt->execute($comment);
     header('Location: /blogs/index.php?id=' . $post['id']);
 }
 
-if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $comment = $_POST['comment'];
-
-    postComment($comment);
-}
 ?>
 
 <!doctype html>

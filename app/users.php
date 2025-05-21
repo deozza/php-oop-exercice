@@ -5,36 +5,10 @@ function isLoggedIn(): bool {
     return isset($_SESSION['user_id']);
 }
 
-function getDbConnexion(): PDO {
-    $host = 'php-oop-exercice-db';
-    $db = 'blog';
-    $user = 'root';
-    $password = 'password';
-
-    $dsn = "mysql:host=$host;dbname=$db;charset=UTF8";
-
-    return new PDO($dsn, $user, $password);
-}
 
 function getPosts(): array {
-    $currentPage = getPage();
-    $postsPerPage = getLimit();
-    $offset = ($currentPage - 1) * $postsPerPage;
-    
-    $sql = "SELECT posts.id, posts.title, posts.created_at
-    FROM posts 
-    INNER JOIN users ON posts.user_id = users.id
-    WHERE posts.user_id = :id
-    ORDER BY posts.created_at DESC
-    LIMIT 10
-    OFFSET $offset;
-    ";
 
-    $stmt = getDbConnexion()->prepare($sql);
-    $stmt->execute(['id' => $_GET['id']]);
-    $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    return $posts;
+    return [];
 }
 
 
@@ -48,12 +22,7 @@ function getLimit(): int {
 
 
 function getPostsCount(): int {
-    $sql = "SELECT COUNT(*) FROM posts WHERE user_id = :id";
-    $stmt = getDbConnexion()->prepare($sql);
-    $stmt->execute(['id' => $_GET['id']]);
-    $count = $stmt->fetchColumn();
-
-    return $count;
+    return 0;
 }
 
 function getPagination(): array {
@@ -68,12 +37,7 @@ function getPagination(): array {
 }
 
 function getUser(int $id): array {
-    $sql = "SELECT * FROM users WHERE id = :id";
-    $stmt = getDbConnexion()->prepare($sql);
-    $stmt->execute(['id' => $id]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    return $user;
+    return [];
 }
 
 ?>
